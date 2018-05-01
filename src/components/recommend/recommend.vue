@@ -1,22 +1,25 @@
 <template>
-  <div>
-    <ul>
+  <div v-if="data.length">
+    <Slider>
       <li v-for="itme in data">
         <img :src="itme.picUrl" alt="">
       </li>
-    </ul>
+    </Slider>
   </div>
 </template>
 
 <script>
   import {getRecommend} from 'api/recommeds'
   import {ERR_OK} from 'api/config'
-
+  import Slider from 'base/slider/slider'
   export default {
     data(){
       return {
        data:[]
       }
+    },
+    components:{
+      Slider
     },
     created(){
       this._getRecommemd()
