@@ -23,6 +23,8 @@
     li
       flex-grow:1
       margin 0 20px 0 20px
+      font-size 0.8em
+
 
 
 

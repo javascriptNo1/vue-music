@@ -20,5 +20,5 @@
     color:$bc
     margin  0
     padding 10px 0 10px 0
-    font-size 20px
+    font-size 1.5rem
 </style>

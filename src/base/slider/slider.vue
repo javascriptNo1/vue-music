@@ -3,7 +3,8 @@
     <div class="slider-group" ref="sliderGroup">
       <slot></slot>
     </div>
-    <div class="dots">
+    <div v-if="showDots" class="dots">
+
     </div>
   </div>
 </template>
@@ -25,12 +26,20 @@
       interval:{
         type:Number,
         default:4000
+      },
+      showDots:{
+        type:Boolean,
+        default:true
       }
     },
     mounted(){
       setTimeout(()=>{
         this._setsliderWidth();
         this._initSlider()
+        const scroll = new BScroll(this.$refs.slider,{
+          scrollX: true,
+          click: true
+        })
       }, 20)
     },
     methods:{
@@ -39,14 +48,13 @@
 
         let width=0;
         let sliderWidth=this.$refs.slider.clientWidth;
-        console.log(this.children)
         for (let i=0;i<this.children.length;i++){
           let child=this.children[i]
-          console.log()
           addClass(child,'slider-item')
 
           child.style.width=sliderWidth+'px'
-          this.children[i].children[i].style.width=sliderWidth+'px'
+          this.children[i].children[0].style.width=sliderWidth+'px'
+          width +=sliderWidth
         }
 
         if(this.loop){
@@ -65,10 +73,11 @@
 
 <style scoped lang="stylus">
   .slider
-    width 100%
+    overflow hidden
+    .dots
+      width 100px
     .slider-group
        overflow hidden
-       width 100%
       .slider-item
       float left
 </style>
