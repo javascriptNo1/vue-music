@@ -5,6 +5,7 @@
         <img :src="itme.picUrl" alt="">
       </li>
     </Slider>
+    <h2 class="title">热门歌单推荐</h2>
   </div>
 </template>
 
@@ -38,5 +39,7 @@
 </script>
 
 <style scoped lang="stylus">
-
+  .title
+    margin-top 20px
+    color #ff0
 </style>
