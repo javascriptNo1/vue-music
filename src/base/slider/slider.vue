@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div v-if="showDots" class="dots">
-       <span class="dot" :class="{activer :currentPageIndex===index}" v-for="(item,index) in dots"></span>
+       <span class="dot" :class="{activer : currentPageIndex===index}" v-for="(item,index) in dots"></span>
     </div>
   </div>
 </template>
@@ -83,16 +83,18 @@
           scrollX: true,
           scrollY: false,
           momentum: false,
-          snap:{
-            loop:this.loop,
-            threshold:0.3,
-            speed:400
-          }
+          snap: true,
+          snapLoop: this.loop,
+          snapThreshold: 0.3,
+          snapSpeed: 400
         })
         this.slider.on('scrollEnd',()=>{
           let pageIndex=this.slider.getCurrentPage().pageX;
-
+          if (this.loop) {
+            pageIndex -= 1
+          }
           this.currentPageIndex=pageIndex;
+
 
           if(this.autoPlay){
             clearTimeout(this.timer);
@@ -102,11 +104,12 @@
       },
       _play(){
         let PageIndex=this.currentPageIndex+1;
-        // if(this.loop){
-        //   PageIndex+=1;
-        // }
+         if(this.loop){
+           PageIndex+=1;
+         }
         this.timer=setTimeout(()=>{
-          this.slider.next()(PageIndex,0,400);
+
+          this.slider.goToPage(PageIndex,0,400);
         },this.interval)
       }
     }
